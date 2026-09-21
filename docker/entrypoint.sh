@@ -6,4 +6,4 @@ if [ "${WANDORA_SITE_DB_PUSH:-1}" = "1" ]; then
   ./node_modules/.bin/prisma db push --skip-generate
 fi
 
-exec bun server.js
+exec node server.js
