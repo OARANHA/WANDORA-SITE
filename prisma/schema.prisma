@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================================
+// Diagnóstico de IA Wandora
+// Um "diagnóstico" é gerado quando o usuário completa as 7
+// perguntas. O contato é opcional (answer-first): o resultado
+// pertence ao usuário de qualquer forma.
+// ============================================================
+model Diagnostic {
+  id           String             @id @default(uuid())
+  createdAt    DateTime           @default(now())
+  updatedAt    DateTime           @updatedAt
+
+  // resultado do quiz
+  trailKey     String // atendimento | sdr_vendas | operacao | painel | resgate
+  trailLabel   String
+  answers      String // JSON string com todas as respostas
+  urgencyScore Int                @default(0)
+  urgencyLevel String             @default("baixa") // baixa | media | alta
+  fitScore     Int                @default(0) // 0-100, fit comercial estimado
+
+  // contato opcional (capturado no fim, com consentimento LGPD)
+  contactName     String?
+  contactCompany  String?
+  contactWhatsapp String?
+  contactEmail    String?
+  consentContact  Boolean @default(false)
+
+  // "Painel Inteligente": enriquecimento por LLM para o time comercial
+  aiSummary   String? // resumo gerado por IA para o vendedor humano
+  aiPriority  String? // alta | media | baixa
+  aiNextStep  String? // próximo passo recomendado
+
+  // funil: anonimo -> capturado -> contato_whatsapp
+  leadStatus String @default("anonimo")
+
+  events DiagnosticEvent[]
+}
+
+// eventos de funil (espelha os eventos de analytics da referência)
+model DiagnosticEvent {
+  id          String      @id @default(uuid())
+  createdAt   DateTime    @default(now())
+  type        String // start | complete | whatsapp_click | lead_captured | restart
+  trailKey    String?
+  diagnostic  Diagnostic? @relation(fields: [diagnosticId], references: [id])
+  diagnosticId String?
+}

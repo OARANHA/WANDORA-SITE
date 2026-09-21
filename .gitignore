@@ -1,0 +1,40 @@
+# dependencies
+node_modules/
+.pnp
+.pnp.*
+.yarn/
+
+# Next.js
+.next/
+out/
+build/
+
+# local data / databases
+db/*
+!db/.gitkeep
+*.db
+*.db-journal
+*.sqlite
+*.sqlite3
+
+# environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# logs and tooling
+*.log
+coverage/
+.DS_Store
+.vercel/
+*.tsbuildinfo
+next-env.d.ts
+
+# local/editor artifacts
+.claude/
+.z-ai-config/
+tool-results/
+upload/
+.zscripts/

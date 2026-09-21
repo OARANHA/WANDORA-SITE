@@ -1,0 +1,15 @@
+.git
+.github
+.next
+node_modules
+.env
+.env.*
+!.env.example
+*.log
+coverage
+tool-results
+upload
+.zscripts
+db/*.db
+db/*.sqlite*
+docs/archive

@@ -1,0 +1,39 @@
+services:
+  site:
+    build:
+      context: .
+    image: ${WANDORA_SITE_IMAGE:-wandora/site:local}
+    container_name: wandora-site
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /tmp
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+      DATABASE_URL: file:/app/data/wandora-site.db
+      WANDORA_SITE_DB_PUSH: "1"
+    volumes:
+      - wandora-site-data:/app/data
+    networks:
+      - wandora-edge
+    healthcheck:
+      test:
+        - CMD
+        - bun
+        - -e
+        - "fetch('http://127.0.0.1:3000/api/health').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+
+networks:
+  wandora-edge:
+    external: true
+
+volumes:
+  wandora-site-data:

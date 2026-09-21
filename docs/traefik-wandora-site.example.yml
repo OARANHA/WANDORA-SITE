@@ -1,0 +1,28 @@
+# Candidate dynamic configuration for the canonical Wandora Traefik stack.
+# Source of truth for active edge routing remains OARANHA/wandora.
+http:
+  routers:
+    wandora-site:
+      rule: "Host(`wandora.com.br`) || Host(`www.wandora.com.br`)"
+      entryPoints:
+        - websecure
+      service: wandora-site
+      middlewares:
+        - wandora-site-security
+      tls:
+        certResolver: letsencrypt
+
+  middlewares:
+    wandora-site-security:
+      headers:
+        contentTypeNosniff: true
+        frameDeny: true
+        referrerPolicy: "strict-origin-when-cross-origin"
+        stsSeconds: 31536000
+        stsIncludeSubdomains: true
+
+  services:
+    wandora-site:
+      loadBalancer:
+        servers:
+          - url: "http://wandora-site:3000"
