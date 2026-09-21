@@ -16,7 +16,7 @@ A base atual é uma aplicação Next.js com diagnóstico interativo, cálculo de
 
 ```bash
 cp .env.example .env
-bun install --frozen-lockfile
+bun install
 bun run db:push
 bun run dev
 ```
@@ -41,6 +41,10 @@ O `compose.yaml` foi preparado para deploy por repositório Git no Portainer. El
 - sincroniza o schema Prisma no boot sem aceitar perda destrutiva automaticamente.
 
 O Traefik da VPS usa **file provider**, não labels Docker. Portanto o roteamento público deve continuar versionado no repositório `OARANHA/wandora`. Um candidato está em `docs/traefik-wandora-site.example.yml` para futura integração/revisão no repositório principal.
+
+## Dependências
+
+O build usa `package.json` como fonte de dependências. O repositório pode receber um lockfile posteriormente quando quisermos congelar exatamente a resolução das dependências; o Docker atual não depende da presença dele para construir.
 
 ## Limites atuais
 
