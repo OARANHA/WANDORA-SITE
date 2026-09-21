@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 import { API, WANDORA } from "@/lib/wandora/config";
 import { Send } from "lucide-react";
 
@@ -23,13 +23,8 @@ export function LeadForm({
   const [status, setStatus] = useState<StatusKind>("idle");
   const [statusMsg, setStatusMsg] = useState("");
 
-  // deep-link do WhatsApp recompõe com nome/empresa quando preenchidos
-  const [liveWa, setLiveWa] = useState(waHref);
-  useEffect(() => {
-    setLiveWa(waHref);
-  }, [waHref]);
-
-  useEffect(() => {
+  // deep-link do WhatsApp recompõe com nome/empresa sem estado derivado.
+  const liveWa = useMemo(() => {
     try {
       const url = new URL(waHref);
       const text = url.searchParams.get("text") || "";
@@ -39,11 +34,10 @@ export function LeadForm({
       const saud = who ? `Olá! Aqui é ${who}. ` : "Olá! ";
       const idx = text.indexOf("Vim do Diagnóstico");
       const base = idx >= 0 ? text.slice(idx) : text;
-      const full = saud + base;
-      url.searchParams.set("text", full);
-      setLiveWa(url.toString());
+      url.searchParams.set("text", saud + base);
+      return url.toString();
     } catch {
-      /* noop */
+      return waHref;
     }
   }, [name, company, waHref]);
 
