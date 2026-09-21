@@ -67,7 +67,7 @@ export function Hero({
         <div className="hero-visual" aria-hidden="true">
           <div className="hero-img-card">
             <img
-              src="/wandora/equipe-mista.jpg"
+              src="/wandora/equipe-mista.webp"
               alt=""
               draggable={false}
             />
