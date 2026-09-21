@@ -16,7 +16,7 @@ const EMPLOYEES: Employee[] = [
   {
     name: "Aurora",
     role: "Atendimento 24/7",
-    img: "/wandora/emp-atendimento.png",
+    img: "/wandora/emp-atendimento.webp",
     badge: "Mais contratada",
     badgeHi: true,
     skills: [
@@ -28,7 +28,7 @@ const EMPLOYEES: Employee[] = [
   {
     name: "Vega",
     role: "SDR / Vendas",
-    img: "/wandora/emp-sdr.png",
+    img: "/wandora/emp-sdr.webp",
     skills: [
       "Qualifica leads com método",
       "Agenda reunião na agenda certa",
@@ -38,7 +38,7 @@ const EMPLOYEES: Employee[] = [
   {
     name: "Noé",
     role: "Operação & Backoffice",
-    img: "/wandora/emp-operacao.png",
+    img: "/wandora/emp-operacao.webp",
     skills: [
       "Move dados entre sistemas",
       "Cobra, confirma e lembra",
@@ -48,7 +48,7 @@ const EMPLOYEES: Employee[] = [
   {
     name: "Íris",
     role: "Painel / Dados",
-    img: "/wandora/emp-painel.png",
+    img: "/wandora/emp-painel.webp",
     skills: [
       "Funil que se preenche sozinho",
       "Relatórios prontos, sem digitar",
@@ -58,7 +58,7 @@ const EMPLOYEES: Employee[] = [
   {
     name: "Fênix",
     role: "Resgate (já tentei bot)",
-    img: "/wandora/emp-resgate.png",
+    img: "/wandora/emp-resgate.webp",
     skills: [
       "Pra quem já se frustrou com bot",
       "Sai do script, resolve o caso",
@@ -131,7 +131,7 @@ export function Team() {
         <article className="emp-card custom" role="listitem">
           <div className="emp-img" style={{ background: "var(--paper)" }}>
             <img
-              src="/wandora/bento-abstract.png"
+              src="/wandora/bento-abstract.webp"
               alt=""
               draggable={false}
               style={{ opacity: 0.9 }}
