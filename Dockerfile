@@ -1,6 +1,7 @@
 FROM oven/bun:1.3.4 AS build
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    DATABASE_URL=file:/tmp/wandora-site-build.db
 WORKDIR /app
 
 COPY package.json ./
