@@ -1,4 +1,10 @@
-FROM node:22-bookworm-slim AS build
+FROM node:22-bookworm-slim AS base
+
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends openssl \
+    && rm -rf /var/lib/apt/lists/*
+
+FROM base AS build
 
 ENV NEXT_TELEMETRY_DISABLED=1 \
     DATABASE_URL=file:/tmp/wandora-site-build.db
@@ -16,7 +22,7 @@ COPY src ./src
 
 RUN npm run typecheck && npm run lint && npm run build
 
-FROM node:22-bookworm-slim
+FROM base
 
 ENV NODE_ENV=production \
     NEXT_TELEMETRY_DISABLED=1 \
