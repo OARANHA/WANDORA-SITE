@@ -930,7 +930,7 @@ body {
 .bento-big .bento-bg {
   position: absolute;
   inset: 0;
-  background-image: url("/wandora/bento-abstract.png");
+  background-image: url("/wandora/bento-abstract.webp");
   background-size: cover;
   background-position: center;
   opacity: 0.25;
