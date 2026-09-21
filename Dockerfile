@@ -3,8 +3,8 @@ FROM oven/bun:1.3.4 AS build
 ENV NEXT_TELEMETRY_DISABLED=1
 WORKDIR /app
 
-COPY package.json bun.lock ./
-RUN bun install --frozen-lockfile
+COPY package.json ./
+RUN bun install
 
 COPY prisma ./prisma
 RUN bunx prisma generate
@@ -26,7 +26,7 @@ ENV NODE_ENV=production \
 
 WORKDIR /app
 
-COPY --from=build --chown=bun:bun /app/package.json /app/bun.lock ./
+COPY --from=build --chown=bun:bun /app/package.json ./
 COPY --from=build --chown=bun:bun /app/node_modules ./node_modules
 COPY --from=build --chown=bun:bun /app/.next/standalone ./
 COPY --from=build --chown=bun:bun /app/.next/static ./.next/static
