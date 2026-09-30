@@ -2,7 +2,7 @@ services:
   site:
     build:
       context: .
-    image: ${WANDORA_SITE_IMAGE:-wandora/site:local}
+    image: ${WANDORA_SITE_IMAGE:-ghcr.io/oaranha/wandora-site:main}
     container_name: wandora-site
     restart: unless-stopped
     security_opt:
