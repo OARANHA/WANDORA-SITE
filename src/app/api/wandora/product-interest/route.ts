@@ -23,11 +23,14 @@ const schema = z.object({
   consent: z.literal(true),
 });
 
-function corsHeaders(request: Request) {
+function corsHeaders(request: Request): Record<string, string> {
   const origin = request.headers.get("origin");
-  return origin && ALLOWED_ORIGINS.has(origin)
-    ? { "Access-Control-Allow-Origin": origin, Vary: "Origin" }
-    : {};
+  if (!origin || !ALLOWED_ORIGINS.has(origin)) return {};
+
+  return {
+    "Access-Control-Allow-Origin": origin,
+    Vary: "Origin",
+  };
 }
 
 export async function OPTIONS(request: Request) {
