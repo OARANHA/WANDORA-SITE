@@ -53,3 +53,23 @@ model DiagnosticEvent {
   diagnostic  Diagnostic? @relation(fields: [diagnosticId], references: [id])
   diagnosticId String?
 }
+
+
+model ProductInterest {
+  id                String   @id @default(uuid())
+  createdAt         DateTime @default(now())
+  product           String
+  source            String
+  name              String
+  email             String
+  whatsapp          String?
+  company           String
+  website           String?
+  useCase           String
+  agentsCount       String?
+  stack             String?
+  successDefinition String?
+  message           String?
+  consentContact    Boolean  @default(false)
+  status            String   @default("novo")
+}
