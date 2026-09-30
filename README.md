@@ -55,3 +55,14 @@ O número comercial de WhatsApp ainda está como placeholder em `src/lib/wandora
 ## Relação com `OARANHA/wandora`
 
 Este repositório é o site público/marketing. O repositório principal continua sendo a autoridade de produto, arquitetura e infraestrutura compartilhada. A integração futura deve ocorrer por contratos explícitos, sem copiar o domínio do Core para dentro do site.
+
+
+## Production image flow
+
+Production uses GitHub as the image builder and Portainer as the deploy controller:
+
+`GitHub -> GHCR -> Portainer -> Docker`
+
+The `.github/workflows/container.yml` workflow builds the site on pull requests and publishes both `sha-<commit>` and `main` tags to `ghcr.io/oaranha/wandora-site` after a push to `main`.
+
+The Compose file still retains `build.context` for local development, but the default runtime image is the published `ghcr.io/oaranha/wandora-site:main`. This is intentional: Portainer's "Pull and redeploy" must deploy source-code changes even when `compose.yaml` itself did not change.
